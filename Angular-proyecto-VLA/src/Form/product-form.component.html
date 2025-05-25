@@ -1,0 +1,22 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input id="name" formControlName="name" type="text" />
+  </div>
+  <div>
+    <label for="price">Price:</label>
+    <input id="price" formControlName="price" type="number" />
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+  <div>
+    <label for="category">Category:</label>
+    <select id="category" formControlName="category">
+      <option value="groceries">Groceries</option>
+      <option value="cleaning">Cleaning Products</option>
+    </select>
+  </div>
+  <button type="submit" [disabled]="productForm.invalid">Submit</button>
+</form>
