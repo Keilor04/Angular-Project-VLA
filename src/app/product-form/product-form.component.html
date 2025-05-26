@@ -1,0 +1,52 @@
+<div class="product-form-container">
+    <h2>Formulario de creación de producto</h2>
+  
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Nombre del Producto:</label>
+        <input id="title" type="text" formControlName="title" placeholder="Ej: Abarrotes">
+        <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched" class="error-message">
+          <span *ngIf="productForm.get('title')?.errors?.['required']">El nombre es requerido.</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="price">Precio:</label>
+        <input id="price" type="number" formControlName="price" placeholder="Ej: 1200.50">
+        <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="error-message">
+          <span *ngIf="productForm.get('price')?.errors?.['required']">El precio es requerido.</span>
+          <span *ngIf="productForm.get('price')?.errors?.['min']">El precio debe ser mayor a 0.</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Descripción:</label>
+        <input id="description" formControlName="description" rows="5" placeholder="Una descripción detallada del producto..."></input>
+        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="error-message">
+          <span *ngIf="productForm.get('description')?.errors?.['required']">La descripción es requerida.</span>
+          <span *ngIf="productForm.get('description')?.errors?.['minlength']">La descripción debe tener al menos 10 caracteres.</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="categoryId">Categoría:</label>
+        <select id="categoryId" formControlName="categoryId">
+          <option value="" disabled>Seleccione una categoría</option>
+          <option *ngFor="let category of categories$ | async" [value]="category.id">{{category.name}}</option>
+        </select>
+       
+    
+  
+      <div *ngIf="isLoading" class="loading-message">
+        <span>Creando producto...</span>
+      </div>
+      <div *ngIf="successMessage" class="success-message">
+        <span>{{ successMessage }}</span>
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        <span>{{ errorMessage }}</span>
+      </div>
+  
+      <button type="submit" [disabled]="productForm.invalid || isLoading">Guardar</button>
+    </form>
+  </div>
