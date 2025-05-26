@@ -3,7 +3,7 @@
   
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="title">Nombre del Producto:</label>
+        <label for="title">Nombre:</label>
         <input id="title" type="text" formControlName="title" placeholder="Ej: Abarrotes">
         <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched" class="error-message">
           <span *ngIf="productForm.get('title')?.errors?.['required']">El nombre es requerido.</span>
